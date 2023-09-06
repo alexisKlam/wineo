@@ -1,0 +1,624 @@
+{
+  "x-generator": "NSwag v13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "wineo API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/WineAlerts": {
+      "post": {
+        "tags": [
+          "WineAlerts"
+        ],
+        "operationId": "WineAlerts_Create",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWineAlertCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/WineEvaluation": {
+      "post": {
+        "tags": [
+          "WineEvaluation"
+        ],
+        "operationId": "WineEvaluation_Create",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWineEvaluationCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Wines/search": {
+      "post": {
+        "tags": [
+          "Wines"
+        ],
+        "operationId": "Wines_Search",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchWineQuery"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WinesVM"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Wines/create": {
+      "post": {
+        "tags": [
+          "Wines"
+        ],
+        "operationId": "Wines_Create",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWineCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Wines/{id}": {
+      "get": {
+        "tags": [
+          "Wines"
+        ],
+        "operationId": "Wines_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WineDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/Wines/prices": {
+      "get": {
+        "tags": [
+          "Wines"
+        ],
+        "operationId": "Wines_GetTodoItemsWithPagination",
+        "parameters": [
+          {
+            "name": "WineId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedListOfWinePriceDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateWineAlertCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "country"
+        ],
+        "properties": {
+          "year": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0.0,
+            "nullable": true,
+            "exclusiveMinimum": true
+          },
+          "country": {
+            "type": "string",
+            "minLength": 1,
+            "nullable": false
+          },
+          "wineType": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/WineType"
+              }
+            ]
+          }
+        }
+      },
+      "WineType": {
+        "type": "string",
+        "description": "",
+        "x-enumNames": [
+          "Red",
+          "White"
+        ],
+        "enum": [
+          "Red",
+          "White"
+        ]
+      },
+      "CreateWineEvaluationCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evaluation"
+        ],
+        "properties": {
+          "appearance": {
+            "type": "number",
+            "format": "double",
+            "maximum": 5.0,
+            "minimum": 0.0
+          },
+          "aroma": {
+            "type": "number",
+            "format": "double",
+            "maximum": 5.0,
+            "minimum": 0.0
+          },
+          "taste": {
+            "type": "number",
+            "format": "double",
+            "maximum": 5.0,
+            "minimum": 0.0
+          },
+          "evaluation": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "nullable": false
+          },
+          "wineId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "WinesVM": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "lists": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WineListItemDto"
+            }
+          }
+        }
+      },
+      "WineListItemDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "region": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/WineTypeDto"
+          },
+          "score": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "aroma": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "taste": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "appearance": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "priceDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "commercialLink": {
+            "type": "string"
+          }
+        }
+      },
+      "WineTypeDto": {
+        "type": "string",
+        "description": "",
+        "x-enumNames": [
+          "Red",
+          "White"
+        ],
+        "enum": [
+          "Red",
+          "White"
+        ]
+      },
+      "SearchWineQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ids": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "years": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "countries": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "regions": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/WineTypeDto"
+              }
+            ]
+          },
+          "minPrice": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          },
+          "maxPrice": {
+            "type": "number",
+            "format": "decimal",
+            "nullable": true
+          }
+        }
+      },
+      "CreateWineCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "region": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/WineType"
+          }
+        }
+      },
+      "WineDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "region": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/WineTypeDto"
+          },
+          "evaluations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WineEvaluationDto"
+            }
+          },
+          "prices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WinePriceDto"
+            }
+          }
+        }
+      },
+      "WineEvaluationDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "appearance": {
+            "type": "number",
+            "format": "double"
+          },
+          "aroma": {
+            "type": "number",
+            "format": "double"
+          },
+          "taste": {
+            "type": "number",
+            "format": "double"
+          },
+          "evaluation": {
+            "type": "string"
+          },
+          "authorId": {
+            "type": "string"
+          }
+        }
+      },
+      "WinePriceDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "price": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "commercialLink": {
+            "type": "string"
+          }
+        }
+      },
+      "PaginatedListOfWinePriceDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WinePriceDto"
+            }
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hasPreviousPage": {
+            "type": "boolean"
+          },
+          "hasNextPage": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "JWT": {
+        "type": "apiKey",
+        "description": "Type into the textbox: Bearer {your JWT token}.",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "JWT": []
+    }
+  ]
+}
