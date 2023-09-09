@@ -16,6 +16,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: App Settings Variable Substitution
+      uses: microsoft/variable-substitution@v1
+      with:
+        files: '${{env.DOTNET_ROOT}}/src/WebUi/appsettings.json'
+      env:
+        UseInMemoryDatabase: true    
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
